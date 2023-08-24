@@ -116,4 +116,4 @@ const startgame = () => {
 
 
   const [bottomPositions, setBottomPosition] = useState(50);
-  <div id="Spielfigur" style={{ bottom: `${bottomPositions}px` }}></div>
+  
