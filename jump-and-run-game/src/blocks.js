@@ -1,4 +1,5 @@
 import React from 'react';
+import { Context } from './maps/state';
 
 const options = [50, 100, 150, 200, 250];
 
@@ -6,9 +7,6 @@ const getRandomHeight = () => {
   const randomIndex = Math.floor(Math.random() * options.length);
   return options[randomIndex];
 };
-
-let randomleft = 900;
-
 
 
 const Ground = () => {
@@ -21,9 +19,9 @@ const Ground = () => {
 
 const Block1 = () => {
   const randomHeight = getRandomHeight();
-  randomleft += Math.floor(Math.random() * (250 - 50 + 1)) + 50;
+  const [state, setState] = React.useContext(Context);
   return (
-    <div id="block1" className="block" style={{ height: randomHeight, left: `${randomleft}px` }}></div>
+    <div id="block1" className="block" style={{ height: randomHeight, left: `${state.Block1.x}px` }}></div>
   );
 };
 

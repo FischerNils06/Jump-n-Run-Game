@@ -4,7 +4,12 @@ const initialState = {
   Spielfigur: {
     x: 300, y: 50
   },
+  Block1: {
+    x: 900, y: 50
+  },
 }
+
+
 
 export const Context = React.createContext();
 
@@ -15,4 +20,5 @@ return (
 );
 }
 
-export { Provider };
+export { Provider } ;
+

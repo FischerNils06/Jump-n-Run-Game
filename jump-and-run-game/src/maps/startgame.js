@@ -1,35 +1,30 @@
 import { enterFullscreen } from "../fullscreen";
+import { useState, useEffect } from "react";
 import { GameLoop } from "./gameloop";
-import { useEffect, useContext } from "react";
-import { Context } from "./state";
 
-const Startgame = (e) => {
-    const [state, setState] = useContext(Context);
- 
-    let gameloop = false;
+const Startgame = () => {
+  const [gameloop, setGameloop] = useState(false);
 
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-          if (e.key === 'Enter') {
-            enterFullscreen();
-            gameloop = true;
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        enterFullscreen();
+        setGameloop(true); // Zustand aktualisieren, um die Komponente neu zu rendern
+      }
 
-            GameLoop(gameloop);
-            
-          }
+      if (gameloop && e.key === "w") {
+        // Hier kannst du weitere Logik für den Gameloop einfügen
+      }
+    };
 
-          if ( gameloop && e.key === 'w') {}
-       
-        };
-    
-        document.addEventListener('keydown', handleKeyDown);
-    
-        return () => {
-          document.removeEventListener('keydown', handleKeyDown);
-        };
-      }, );
-        
-   
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [gameloop]); // 'gameloop' in den Abhängigkeiten aufnehmen
+
+  return <>{gameloop && <GameLoop />}</>; // GameLoop nur rendern, wenn gameloop true ist
 };
 
 export { Startgame };

@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Figur } from '../figur';
+import React, {useEffect} from 'react';
+import { Context } from './state';
 
 const GameLoop = (gameloop) => {
-    const blocks = document.querySelectorAll('.block');
-    
-    blocks.forEach((block) => {
-     
-      let currentPosition = parseFloat(block.offsetLeft);
-      
   
-      const animateBlock = () => {
-        currentPosition -= 1; 
+  const [state, setState] = React.useContext(Context);
+  let currentPosition = state.Block1.x;
+  const blocks = document.querySelectorAll('.block');
+  
+  
+    const animateBlock = (block) => {
+      const updatePosition = () => {
+        currentPosition -= 1;
         block.style.left = `${currentPosition}px`;
-       
-  
+
         if (currentPosition > -block.offsetWidth) {
-          requestAnimationFrame(animateBlock);
+          requestAnimationFrame(updatePosition);
         }
       };
-  
-      animateBlock();
+      
+      updatePosition();
+    };
+
+    blocks.forEach((block) => {
+      if (block.id === 'block1') {
+        animateBlock(block);
+      }
     });
 
 
-
-} 
+  return null; 
+};
 
 export { GameLoop };
+
